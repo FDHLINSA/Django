@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
     <header>
@@ -15,29 +15,25 @@
                 <li><a href="#">Home</a></li>
                 <li><a href="#">Books</a></li>
                 <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="{% url 'login' %}">Log Out</a></li>
             </ul>
         </nav>
     </header>
     <main>
         <section class="book-list">
             <h2>Available Books</h2>
+            {% for book in books %}
             <div class="book">
-                <img src="book1.jpg" alt="Book 1">
+                {%  if book.cover_image %}
+                <img src="{{ book.cover_image.url }}" alt="Book 1">
+                {% endif %}
                 <div class="book-info">
-                    <h3>Book Title 1</h3>
-                    <p>Author: John Doe</p>
-                    <p>Genre: Fiction</p>
+                    <h3>{{ book.title }}</h3>
+                    <p>Author: {{ book.author }}</p>
+                    <p>Publish: {{ book.published_date }}</p>
                 </div>
             </div>
-            <div class="book">
-                <img src="book2.jpg" alt="Book 2">
-                <div class="book-info">
-                    <h3>Book Title 2</h3>
-                    <p>Author: Jane Smith</p>
-                    <p>Genre: Mystery</p>
-                </div>
-            </div>
+            {% endfor %}
             <!-- Tambahkan lebih banyak buku di sini -->
         </section>
     </main>
